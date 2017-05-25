@@ -1,0 +1,19 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.1",
+  "description": "",
+  "main": "config/boot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "lodash": "^4.17.4",
+    "useragent": "^2.1.12"
+  },
+  "devDependencies": {
+  }
+}
