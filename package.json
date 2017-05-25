@@ -1,7 +1,7 @@
 {
   "name": "backrest",
   "version": "1.0.0",
-  "description": "Rails like Node framework for purley backend APIs.",
+  "description": "Rails like Node framework to create simple, pure backend APIs.",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
