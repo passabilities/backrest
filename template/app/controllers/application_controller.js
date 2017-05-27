@@ -2,7 +2,7 @@ class ApplicationController {
 
   get before() {
     return [
-      ['*', this._setHeaders]
+      { action: this._setHeaders }
     ]
   }
 
