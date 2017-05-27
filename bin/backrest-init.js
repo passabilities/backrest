@@ -11,14 +11,17 @@ program
       name
     }
 
-    _.each(glob.sync(`${__dirname}/../template/**/*`), (file) => {
-      let pathName = `${process.cwd()}/${_.last(file.split('template'))}`
-      if(fs.statSync(file).isDirectory()) {
-        console.log(`Creating directory '${path.dirname(file)}'`)
+    let projectPath = `${process.cwd()}/${name}`
+    fs.mkdirSync(projectPath)
 
+    _.each(glob.sync(`${__dirname}/../template/**/*`), (file) => {
+      let pathName = `${projectPath}/${_.last(file.split('template/'))}`
+      if(fs.statSync(file).isDirectory()) {
+        console.log(`Creating directory '${path.dirname(pathName)}'`)
+        
         fs.mkdirSync(pathName)
       } else {
-        console.log(`Building file ${path.basename(file)}`)
+        console.log(`Building file ${path.basename(pathName)}`)
 
         let source = fs.readFileSync(file, 'utf8')
         let template = hbs.compile(source)
