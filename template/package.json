@@ -11,8 +11,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
-    "lodash": "^4.17.4",
-    "useragent": "^2.1.12"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
   }
