@@ -1,7 +1,15 @@
-// Set default environment to 'development'
-global.__ENV__ = process.env.NODE_ENV || 'development'
-global.__DEV__ = __ENV__ === 'development'
+const nodemon = require('nodemon')
 
-const app = require('express')()
-app.use('/', require('../lib/routing/buildRoutes'))
-require(`${process.cwd()}/config/boot`)(app)
+const logger = require('../src/logger')
+
+nodemon({
+  script: `${__dirname}/../start.js`,
+  ext: 'js json'
+})
+
+nodemon.on('restart', files => {
+  logger.log([
+    'Restarting due to changes...',
+    files
+  ])
+})

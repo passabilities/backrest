@@ -18,7 +18,7 @@ program
       let pathName = `${projectPath}/${_.last(file.split('template/'))}`
       if(fs.statSync(file).isDirectory()) {
         console.log(`Creating directory '${path.dirname(pathName)}'`)
-        
+
         fs.mkdirSync(pathName)
       } else {
         console.log(`Building file ${path.basename(pathName)}`)
