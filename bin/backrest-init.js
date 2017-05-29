@@ -1,11 +1,11 @@
-const program = require('commander')
+const cli = require('commander')
 const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const hbs = require('handlebars')
 
-program
+cli
   .action((name) => {
     let data = {
       name
@@ -29,5 +29,4 @@ program
       }
     })
   })
-
-program.parse(process.argv)
+  .parse(process.argv)

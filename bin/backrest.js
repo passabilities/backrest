@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-let program = require('commander')
+let cli = require('commander')
 
-program
-  .command('init <name>', 'create blank Backrest template')
-  .command('start', 'start the server')
-
-program.parse(process.argv)
+cli
+  .command('init <name>', 'create blank Backrest template').alias('i')
+  .command('start', 'start the server').alias('s')
+  .parse(process.argv)
