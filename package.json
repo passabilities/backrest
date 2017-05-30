@@ -14,9 +14,11 @@
   "dependencies": {
     "commander": "tj/commander.js",
     "express": "^4.15.3",
+    "forever": "^0.15.3",
     "glob": "^7.1.2",
     "handlebars": "^4.0.10",
     "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.11.0",
     "useragent": "^2.1.13"
   }
