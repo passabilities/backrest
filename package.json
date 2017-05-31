@@ -15,7 +15,9 @@
     "backrest": "bin/backrest.js"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "commander": "tj/commander.js",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "forever": "^0.15.3",
     "glob": "^7.1.2",
