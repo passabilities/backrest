@@ -88,6 +88,7 @@ There are a couple ways to define how routes work:
       'get all': 'users#getAll'
     }
   ```
+
 1. Exclude controller name:
 
   If the root of the URL is the same as the controller name, you may exclude it in the route definition. Both of the following point to the `users` controller:

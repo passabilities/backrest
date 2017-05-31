@@ -1,10 +1,13 @@
 {
   "name": "backrest",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Rails like Node framework to create simple, pure backend APIs.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "# Run tests before updating version",
+    "version": "./bin/update-version.js && git add -A",
+    "postversion": ""
   },
   "author": "Noah Passalcqua",
   "license": "ISC",

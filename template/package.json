@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "config/boot.js",
   "scripts": {
@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "backrest": "^0.1.0",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "lodash": "^4.17.4"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
