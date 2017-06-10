@@ -2,6 +2,8 @@
 
 Rails like Node framework to create simple, pure backend APIs.
 
+[![npm](https://img.shields.io/npm/v/backrest.svg)](https://www.npmjs.com/package/backrest)
+
 ## CLI
 
 ### Install

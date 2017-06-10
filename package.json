@@ -1,6 +1,6 @@
 {
   "name": "backrest",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Rails like Node framework to create simple, pure backend APIs.",
   "main": "src/index.js",
   "scripts": {
@@ -9,11 +9,26 @@
     "version": "./bin/update-version.js && git add -A",
     "postversion": ""
   },
-  "author": "Noah Passalcqua",
-  "license": "ISC",
   "bin": {
     "backrest": "bin/backrest.js"
   },
+  "author": "Noah Passalcqua",
+  "license": "MIT",
+  "homepage": "https://github.com/passabilities/backrest#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/passabilities/backrest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/passabilities/backrest/issues"
+  },
+  "keywords": [
+    "nodejs",
+    "framework",
+    "restful-api",
+    "backend",
+    "backend-apis"
+  ],
   "dependencies": {
     "body-parser": "^1.17.2",
     "commander": "tj/commander.js",
