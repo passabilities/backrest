@@ -1,4 +1,8 @@
-class ApplicationController {
+const {
+  ActionController
+} = require('backrest')
+
+class ApplicationController extends ActionController.Base {
 
   get before() {
     return [
@@ -7,6 +11,7 @@ class ApplicationController {
   }
 
   constructor() {
+    super()
   }
 
   _setHeaders(req, res, next) {

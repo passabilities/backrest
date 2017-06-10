@@ -1,5 +1,5 @@
 module.exports = {
-  Controller: require('./controller'),
+  ActionController: require('./action_controller'),
 
   logger: require('./logger')
 }
