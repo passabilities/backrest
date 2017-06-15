@@ -158,3 +158,7 @@ _checkAdmin(req, res, next) {
     console.log('User is not admin. Action is prohibited.')
 }
 ```
+
+### Initializers
+
+Initializers are used to run scripts before the server is started. To create an initializer script, create a file with any name in the directory `config/initializers/`

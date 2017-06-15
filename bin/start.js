@@ -1,3 +1,5 @@
+const _ = require('lodash')
+const glob = require('glob')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
@@ -14,6 +16,9 @@ app.use(cookieParser())
 app.use('/', require('../lib/routing/buildRoutes'))
 
 const port = process.env.PORT || 7777
+
+// Evaluate initializer files before starting the server.
+_.each(glob.sync(`${process.cwd()}/config/initializers/*`), require)
 
 const server = app.listen(port, () => {
   logger.log([
