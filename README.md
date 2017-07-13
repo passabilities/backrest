@@ -52,9 +52,9 @@ This project uses [ExpressJS](http://expressjs.com/) behind the scenes. Please v
 
 ### Routing
 
-Creating routes are meant to be easy with a very simple structure.
+Creating routes are meant to be easy with a very simple structure. They are defined using an array format to allow defining route precedence. Former routes will take precedence over latter ones if they both match the requested URL.
 
-Routes are defined in `config/routes.js`
+Location: `config/routes.js`
 
 Each route will need a couple things:
 
@@ -65,7 +65,7 @@ Each route will need a couple things:
 
 The layout of each route will be in the following format:
 
-* `'{verb} {url}': '{controller}#{action}'`
+* `['{verb} {url}', '{controller}#{action}']`
 * **verb**
   * `get`, `post`, `put`, or `delete`
 * **url**
@@ -81,24 +81,32 @@ There are a couple ways to define how routes work:
 
 1. All inline:
 
-  `'get users/all': 'users#getAll'`
+  ```javascript
+    module.exports = [
+      ['get users/all', 'users#getAll']
+    ]
+  ```
 
 1. Nested:
 
   ```javascript
-    'users': {
-      'get all': 'users#getAll'
-    }
+    module.exports = [
+      ['users', [
+        ['get all', 'users#getAll']
+      ]]
+    ]
   ```
 
 1. Exclude controller name:
 
   If the root of the URL is the same as the controller name, you may exclude it in the route definition. Both of the following point to the `users` controller:
   ```javascript
-    'get users/all': 'getAll',
-    'users': {
-      'get all': 'getAll'
-    }
+    module.exports = [
+      ['get users/all', 'getAll'],
+      ['users', [
+        ['get all', 'getAll']
+      ]]
+    ]
   ```
 
 ### Controllers
