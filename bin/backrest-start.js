@@ -10,6 +10,10 @@ const {
   pidPath
 } = require('../lib/constants')
 
+// Set default environment to 'development'
+global.__ENV__ = process.env.NODE_ENV || 'development'
+global.__DEV__ = __ENV__ === 'development'
+
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
   .option('-d, --daemon', 'Start server in the background.')

@@ -5,10 +5,6 @@ const cookieParser = require('cookie-parser')
 
 const logger = require('../src/logger')
 
-// Set default environment to 'development'
-global.__ENV__ = process.env.NODE_ENV || 'development'
-global.__DEV__ = __ENV__ === 'development'
-
 const app = require('express')()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
