@@ -2,17 +2,13 @@ const cli = require('commander')
 const nodemon = require('nodemon')
 const forever = require('forever')
 const fs = require('fs')
+const path = require('path')
 const mkdirp = require('mkdirp')
 
-const logger = require('../src/logger')
 const {
   startFile,
-  pidPath
+  pidFile
 } = require('../lib/constants')
-
-// Set default environment to 'development'
-global.__ENV__ = process.env.NODE_ENV || 'development'
-global.__DEV__ = __ENV__ === 'development'
 
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
@@ -20,20 +16,23 @@ cli
   .parse(process.argv)
 
 if(cli.daemon) {
-  let child = forever.startDaemon(startFile)
+  let child = new forever.startDaemon(startFile, {
+    silent: true,
+    pidFile
+  })
 
-  logger.log(`Server started on pid: ${child.pid}`)
-  mkdirp(pidPath, err => {
-    if(!err) fs.writeFileSync(`${pidPath}/server.pid`, child.pid)
+  console.log(`Server started on pid: ${child.pid}`)
+  mkdirp(path.dirname(pidFile), err => {
+    if(!err) fs.writeFileSync(pidFile, child.pid)
   })
 } else {
   if(cli.watch) {
-    logger.log('Watching for file changes...')
+    console.log('Watching for file changes...')
     nodemon({
       script: startFile,
       ext: 'js json'
     }).on('restart', files => {
-      logger.log([
+      console.log([
         'Restarting due to changes...',
         files
       ])

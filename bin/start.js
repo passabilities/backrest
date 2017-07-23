@@ -5,6 +5,10 @@ const cookieParser = require('cookie-parser')
 
 const logger = require('../src/logger')
 
+// Set default environment to 'development'
+global.__ENV__ = process.env.NODE_ENV || 'development'
+global.__DEV__ = __ENV__ === 'development'
+
 const app = require('express')()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -30,5 +34,5 @@ function gracefulShutdown() {
   // Force exit if took too long
   setTimeout(process.exit, 10*1000)
 }
-process.on ('SIGTERM', gracefulShutdown) // kill
-process.on ('SIGINT', gracefulShutdown) // Ctrl-C
+process.on('SIGTERM', gracefulShutdown) // kill
+process.on('SIGINT', gracefulShutdown) // Ctrl-C

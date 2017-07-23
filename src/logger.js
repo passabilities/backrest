@@ -29,7 +29,7 @@ function log(message) {
 
 module.exports = {
   log: (message) => {
-    message = buildMessage(message)
+    message = buildMessage(message) + '\r\n'
 
     console.log(message)
     log(message)

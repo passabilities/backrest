@@ -1,5 +1,11 @@
 const forever = require('forever')
+const fs = require('fs')
 
-const { startFile } = require('../lib/constants')
+const {
+  startFile,
+  pidFile
+} = require('../lib/constants')
 
-forever.stop(startFile)
+fs.unlink(pidFile, () => {
+  forever.stop(startFile)
+})
