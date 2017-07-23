@@ -15,14 +15,15 @@ function buildMessage(obj) {
 
 function log(message) {
   // Make sure the `log` directory exist.
+  let root = process.cwd()
   try {
-    let root = process.cwd()
     fs.mkdirSync(`${root}/log`)
+  } catch(err) {
+    // Do nothing. `log` directory already exist.
+  } finally {
     fs.appendFile(`${root}/log/${__ENV__}.log`, message, err => {
       if(err) throw err
     })
-  } catch(err) {
-    // Do nothing. `log` directory already exist.
   }
 }
 
