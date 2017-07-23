@@ -1,8 +1,6 @@
-# Backrest
+# Backrest [![npm](https://img.shields.io/npm/v/backrest.svg)](https://www.npmjs.com/package/backrest)
 
 Rails like Node framework to create simple, pure backend APIs.
-
-[![npm](https://img.shields.io/npm/v/backrest.svg)](https://www.npmjs.com/package/backrest)
 
 ## CLI
 
@@ -163,7 +161,7 @@ _checkAdmin(req, res, next) {
   if(user.isAdmin)
     next()
   else
-    console.log('User is not admin. Action is prohibited.')
+    res.status(401).send('User is not admin. Action is prohibited.')
 }
 ```
 

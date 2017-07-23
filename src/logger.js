@@ -1,3 +1,4 @@
+const fs = require('fs')
 const _ = require('lodash')
 
 function buildMessage(obj) {
@@ -15,10 +16,8 @@ function buildMessage(obj) {
 function log(message) {
   // Make sure the `log` directory exist.
   try {
-    let root = process.pwd()
-
+    let root = process.cwd()
     fs.mkdirSync(`${root}/log`)
-
     fs.appendFile(`${root}/log/${__ENV__}.log`, message, err => {
       if(err) throw err
     })
