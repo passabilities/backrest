@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser')
 
 const logger = require('../src/logger')
 
+const config = require(`${process.cwd()}/config/application`)
+
 // Set default environment to 'development'
 global.__ENV__ = process.env.NODE_ENV || 'development'
 global.__DEV__ = __ENV__ === 'development'
@@ -12,7 +14,7 @@ global.__DEV__ = __ENV__ === 'development'
 const app = require('express')()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser())
+app.use(cookieParser(config.cookieSecret))
 app.use('/', require('../lib/routing/buildRoutes'))
 
 const port = process.env.PORT || 7777
