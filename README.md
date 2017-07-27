@@ -50,7 +50,9 @@ This project uses [ExpressJS](http://expressjs.com/) behind the scenes. Please v
 
 ### Routing
 
-Creating routes are meant to be easy with a very simple structure. They are defined using an array format to allow defining route precedence. Former routes will take precedence over latter ones if they both match the requested URL.
+Creating routes are meant to be easy with a very simple structure.
+They are defined using an array format to allow defining route precedence.
+Former routes will take precedence over latter ones if they both match the requested URL.
 
 Location: `config/routes.js`
 
@@ -118,9 +120,9 @@ They should be saved to the `app/controllers/` directory with the suffix `_contr
 Each action function will have 2 arguments. `req` and `res` standing for `request` and `response` respectfully.
 
 ```javascript
-getAll(req, res) {
+  getAll(req, res) {
 
-}
+  }
 ```
 
 #### Before Filters
@@ -135,34 +137,44 @@ Before filters can do perform the following tasks:
 
 ##### Definition
 
-Before filters are defined in the controller by returning an array of objects. Each object should contain at least 1 property called `action` which is the pointer to the function to be called. Other properties to be used are `only` OR `except` which tell the router which actions to call the before filters for. `only` and `except` can be either a string or array of strings denoting the name of the actions.
+Before filters are set in the controller by calling `this.beforeFilter[s]` with object[s] from within the controller `constructor`.
+Each object should contain at least 1 property called `action` which is the reference to or string value of the function to be called.
+Other properties to be used are `only` OR `except` which tell the router which actions to call the before filters for.
+`only` and `except` can be either a string or array of strings denoting the name of the actions.
 
-Defining the filters in an array like this allow for easy subclassing of the controllers without losing any functionality.
+Filters can also be skipped by calling `this.skipBeforeFilter[s]` with the same rules defined above
 
-```javascript
-get before() {
-  return [
-    { action: this._sayHello },
-    { action: this._checkAdmin, except: ['getPublic'] }
-  ]
-}
-```
+Filters are executed in the same order they are defined.
 
 Examples:
 
 ```javascript
-_sayHello(req, res, next) {
-  console.log('Hello!')
-  next()
-}
+  constructor() {
+    super()
 
-_checkAdmin(req, res, next) {
-  let user = getUserById(req.params.id)
-  if(user.isAdmin)
+    this.beforeFilters([
+      { action: '_checkAdmin', except: ['getPublic'] },
+      { action: this._sayHello }
+    ])
+    this.skipBeforeFilter(
+      { action: this._checkAdmin, only: ['getPublic'] }
+    )
+  }
+
+  _checkAdmin(req, res, next) {
+    let user = getUserById(req.params.id)
+    if(user.isAdmin)
+      next() // Continues to the next filter in the chain.
+    else
+      res // Otherwise, respond to request with error.
+        .status(401)
+        .send('User is not admin. Action is prohibited.')
+  }
+
+  _sayHello(req, res, next) {
+    console.log('Hello!')
     next()
-  else
-    res.status(401).send('User is not admin. Action is prohibited.')
-}
+  }
 ```
 
 ### Initializers
