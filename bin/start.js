@@ -11,16 +11,17 @@ const config = require(`${process.cwd()}/config/application`)
 global.__ENV__ = process.env.NODE_ENV || 'development'
 global.__DEV__ = __ENV__ === 'development'
 
+const port = process.env.PORT || 7777
+
 const app = require('express')()
+
+// Evaluate initializer files before starting the server.
+_.each(glob.sync(`${process.cwd()}/config/initializers/*`), require)
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser(config.cookieSecret))
 app.use('/', require('../lib/routing/buildRoutes'))
-
-const port = process.env.PORT || 7777
-
-// Evaluate initializer files before starting the server.
-_.each(glob.sync(`${process.cwd()}/config/initializers/*`), require)
 
 const server = app.listen(port, () => {
   logger.log([
