@@ -65,21 +65,27 @@ Each route will need a couple things:
 
 The layout of each route will be in the following format:
 
-* `['{verb} {url}', '{controller}#{action}']`
+```
+['{verb} {url}', '({controller}#){action}' || [{subroutes}]]
+```
+
 * **verb**
-  * `get`, `post`, `put`, or `delete`
+  * `get`, `post`, `patch`, `put`, or `delete`
 * **url**
   * URL end point that begins at root (leading `/` is optional)
   * URLs are allowed to have parameters defined denoted using a colon (`:`)
     * Example: `users/:id`
-* **controller**
-  * The controller name is the prefix of the file it is defined in. For example you would use `users` for the controller `app/controllers/users_controller.js`
+* **controller** (optional)
+  * The controller name is the prefix of the file it is defined in. e.g. `users` for `app/controllers/users_controller.js`
+  * May be omitted to set the controller name to the first part of the route **url**. e.g. `users` for `['get users/all', 'getAll']`
 * **action**
-  * This is the name of the function to call defined in the controller.
+  * This is the name of the method to call defined in the controller.
+* **subroutes**
+  * Subroutes may be defined instead of a controller and action.
 
 There are a couple ways to define how routes work:
 
-1. All inline:
+1. Inline:
 
   ```javascript
     module.exports = [
@@ -87,7 +93,7 @@ There are a couple ways to define how routes work:
     ]
   ```
 
-1. Nested:
+1. With subroutes:
 
   ```javascript
     module.exports = [
@@ -108,6 +114,33 @@ There are a couple ways to define how routes work:
       ]]
     ]
   ```
+
+1. [With `resources` verb](#resources):
+
+  ```javascript
+    module.exports = [
+      ['resources users']
+    ]
+  ```
+
+#### Resources
+
+Auto generate resource routes with the `['resources {name}']` route format.
+
+The **name** of the resource must be a single word.
+
+The following routes will be generated:
+
+```javascript
+  [{name}, [
+    [`get /`,       'fetchAll'],
+    [`get /:id`,    'fetch'],
+    [`post /`,      'create'],
+    [`patch /:id`,  'update'],
+    [`put /:id`,    'replace'],
+    [`delete /:id`, 'destroy']
+  ]]
+```
 
 ### Controllers
 
