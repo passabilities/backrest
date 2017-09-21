@@ -4,14 +4,12 @@ const {
 
 class ApplicationController extends ActionController.Base {
 
-  get before() {
-    return [
-      { action: this._setHeaders }
-    ]
-  }
-
   constructor() {
     super()
+
+    this.beforeFilters([
+      { action: this._setHeaders }
+    ])
   }
 
   _setHeaders(req, res, next) {
