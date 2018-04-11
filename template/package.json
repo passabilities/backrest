@@ -8,7 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "backrest": "^0.6.3",
+    "backrest": "^0.6.4",
     "lodash": "^4.17.4"
   },
   "devDependencies": {}
