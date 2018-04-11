@@ -1,6 +1,6 @@
 {
   "name": "backrest",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Rails like Node framework to create simple, pure backend APIs.",
   "main": "src/index.js",
   "scripts": {
