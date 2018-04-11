@@ -1,6 +1,8 @@
 const fs = require('fs')
 const _ = require('lodash')
 
+let isDisabled = false
+
 function buildMessage(obj) {
   if(typeof obj === 'string') {
     return obj + '\r\n'
@@ -28,10 +30,14 @@ function log(message) {
 }
 
 module.exports = {
-  log: (message) => {
+  log(message) {
     message = buildMessage(message) + '\r\n'
 
     console.log(message)
-    log(message)
+    if (!isDisabled) log(message)
+  },
+
+  disable(disable=true) {
+    isDisabled = disable
   }
 }

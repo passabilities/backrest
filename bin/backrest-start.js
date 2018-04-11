@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
 
+const { logger } = require('../src')
 const {
   startFile,
   pidFile
@@ -13,6 +14,7 @@ const {
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
   .option('-d, --daemon', 'Start server in the background.')
+  .option('-L, --nolog', 'Disable logging.')
   .parse(process.argv)
 
 if(cli.daemon) {
@@ -25,7 +27,7 @@ if(cli.daemon) {
   mkdirp(path.dirname(pidFile), err => {
     if(!err) fs.writeFileSync(pidFile, child.pid)
   })
-} else {
+}  else {
   if(cli.watch) {
     console.log('Watching for file changes...')
     nodemon({
@@ -40,4 +42,8 @@ if(cli.daemon) {
   } else {
     require(startFile)
   }
+}
+
+if (cli.nolog) {
+  logger.disable()
 }
