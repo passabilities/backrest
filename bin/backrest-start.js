@@ -1,5 +1,6 @@
 const cli = require('commander')
 const nodemon = require('nodemon')
+const { spawn } = require('child_process')
 const forever = require('forever')
 const fs = require('fs')
 const path = require('path')
@@ -14,6 +15,7 @@ const {
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
   .option('-d, --daemon', 'Start server in the background.')
+  .option('-I, --inspect', 'Enable the inspection tool for Node.')
   .option('-L, --nolog', 'Disable logging.')
   .parse(process.argv)
 
@@ -30,17 +32,18 @@ if(cli.daemon) {
 }  else {
   if(cli.watch) {
     console.log('Watching for file changes...')
-    nodemon({
-      script: startFile,
-      ext: 'js json'
-    }).on('restart', files => {
-      console.log([
-        'Restarting due to changes...',
-        files
-      ])
-    })
+    nodemon(`-e 'js json' ${cli.inspect && '--inspect'} ${startFile}`)
+      .on('restart', files => {
+        console.log([
+          'Restarting due to changes...',
+          files
+        ])
+      })
   } else {
-    require(startFile)
+    spawn(`node ${cli.inspect && '--inspect'} ${startFile}`, {
+      stdio: 'inherit',
+      shell: true
+    })
   }
 }
 
