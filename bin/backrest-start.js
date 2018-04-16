@@ -19,6 +19,10 @@ cli
   .option('-L, --nolog', 'Disable logging.')
   .parse(process.argv)
 
+let cliArgs = ''
+
+if (cli.inspect) cliArgs += '--inspect '
+
 if(cli.daemon) {
   let child = new forever.startDaemon(startFile, {
     silent: true,
@@ -32,7 +36,9 @@ if(cli.daemon) {
 }  else {
   if(cli.watch) {
     console.log('Watching for file changes...')
-    nodemon(`-e 'js json' ${cli.inspect && '--inspect'} ${startFile}`)
+
+    cliArgs += '-e "js json" '
+    nodemon(`${cliArgs} ${startFile}`)
       .on('restart', files => {
         console.log([
           'Restarting due to changes...',
@@ -40,7 +46,7 @@ if(cli.daemon) {
         ])
       })
   } else {
-    spawn(`node ${cli.inspect && '--inspect'} ${startFile}`, {
+    spawn(`node ${cliArgs} ${startFile}`, {
       stdio: 'inherit',
       shell: true
     })
