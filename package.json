@@ -40,7 +40,6 @@
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.11.0",
-    "num-parser": "^1.0.4",
     "useragent": "^2.1.13"
   }
 }
