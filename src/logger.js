@@ -31,6 +31,8 @@ function log(message) {
 
 module.exports = {
   log(message) {
+    if (__ENV__ === 'test') return
+
     message = buildMessage(message) + '\r\n'
 
     console.log(message)
