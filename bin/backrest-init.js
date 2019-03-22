@@ -5,13 +5,15 @@ const path = require('path')
 const _ = require('lodash')
 const hbs = require('handlebars')
 
+const constants = require('../lib/constants')
+
 cli
   .action((name) => {
     let data = {
       name
     }
 
-    let projectPath = `${process.cwd()}/${name}`
+    let projectPath = `${DIR_PATH}/${name}`
     fs.mkdirSync(projectPath)
 
     _.each(glob.sync(`${__dirname}/../template/**/*`), (file) => {
