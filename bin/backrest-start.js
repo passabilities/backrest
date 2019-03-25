@@ -7,11 +7,7 @@ const path = require('path')
 const mkdirp = require('mkdirp')
 
 const { logger } = require('../src')
-const constants = require('../lib/constants')
-const {
-  startFile,
-  pidFile
-} = constants
+const { startFile, pidFile } = require('../lib/constants')
 
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
