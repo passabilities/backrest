@@ -8,6 +8,7 @@ const mkdirp = require('mkdirp')
 
 const { logger } = require('../src')
 const { startFile, pidFile } = require('../lib/constants')
+const { DATADOG } = require('../src/constants')
 
 cli
   .option('-w, --watch', 'Watch for file changes and restart server.')
@@ -15,6 +16,7 @@ cli
   .option('-I, --inspect', 'Enable the inspection tool for Node.')
   .option('-L, --nolog', 'Disable logging.')
   .option('-p, --path <dirPath>', 'Custom path to project.')
+  .option('--datadog', 'Enable DataDog services.')
   .parse(process.argv)
 
 let cliArgs = ''
@@ -27,6 +29,8 @@ if (cli.path) {
   foreverSettings.workingDir = cli.path
   nodemonSettings += `--cwd ${cli.path} `
 }
+
+process.env.DATADOG = cli.datadog ? DATADOG.ENABLED : DATADOG.DISABLED
 
 if(cli.daemon) {
   let child = new forever.startDaemon(startFile, {

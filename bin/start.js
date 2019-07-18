@@ -1,3 +1,9 @@
+const { DATADOG } = require('../src/constants')
+
+let tracer
+if (process.env.DATADOG === DATADOG.ENABLED)
+  tracer = require('dd-trace').init()
+
 const app = require('../app')
 const logger = require('../src/logger')
 
